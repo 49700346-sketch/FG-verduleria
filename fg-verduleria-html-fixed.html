@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FG Verdulería & Frutería</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8f5e9 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .productos {
+            padding: 40px 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .producto {
+            background: #fff;
+            border: 2px solid #e8f5e9;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .producto:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(102, 187, 106, 0.3);
+            border-color: #66bb6a;
+        }
+
+        .producto-icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+        }
+
+        .producto h3 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        .precio {
+            font-size: 1.8em;
+            color: #43a047;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .cantidad-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .cantidad-control button {
+            background: #66bb6a;
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cantidad-control button:hover {
+            background: #43a047;
+            transform: scale(1.1);
+        }
+
+        .cantidad-control input {
+            width: 60px;
+            text-align: center;
+            font-size: 1.2em;
+            border: 2px solid #e8f5e9;
+            border-radius: 8px;
+            padding: 8px;
+        }
+
+        .btn-agregar {
+            background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(102, 187, 106, 0.3);
+        }
+
+        .btn-agregar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(102, 187, 106, 0.4);
+        }
+
+        .carrito {
+            background: #f1f8e9;
+            padding: 30px;
+            margin: 30px;
+            border-radius: 15px;
+            border: 2px solid #c5e1a5;
+        }
+
+        .carrito h2 {
+            color: #2e7d32;
+            margin-bottom: 20px;
+            font-size: 2em;
+            text-align: center;
+        }
+
+        .carrito-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .carrito-item-info {
+            flex: 1;
+        }
+
+        .carrito-item button {
+            background: #ef5350;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carrito-item button:hover {
+            background: #d32f2f;
+        }
+
+        .total {
+            background: #66bb6a;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .instrucciones-pago {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 2px solid #66bb6a;
+        }
+
+        .instrucciones-pago h3 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .instrucciones-pago p {
+            margin: 10px 0;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .alias-pago {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2e7d32;
+            text-align: center;
+            margin: 15px 0;
+            border: 2px dashed #66bb6a;
+        }
+
+        .instagram-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(131, 58, 180, 0.3);
+        }
+
+        .instagram-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(131, 58, 180, 0.4);
+        }
+
+        .carrito-vacio {
+            text-align: center;
+            color: #757575;
+            padding: 30px;
+            font-size: 1.1em;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            
+            .productos {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            
+            .carrito {
+                margin: 20px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🥬 FG Verdulería & Frutería 🍎</h1>
+            <p>Frutas y Verduras Frescas del Día</p>
+        </header>
+
+        <div class="productos" id="productos">
+            <div class="producto">
+                <div class="producto-icon">🍌</div>
+                <h3>Banana</h3>
+                <div class="precio">$1.000/kg</div>
+                <div class="cantidad-control">
+                    <button onclick="cambiarCantidad('banana', -0.5)">-</button>
+                    <input type="number" id="cant-banana" value="1" min="0.5" step="0.5" readonly>
+                    <button onclick="cambiarCantidad('banana', 0.5)">+</button>
+                </div>
+                <button class="btn-agregar" onclick="agregarAlCarrito('Banana', 1000, 'banana')">
+                    Agregar al Carrito
+                </button>
+            </div>
+
+            <div class="producto">
+                <div class="producto-icon">🍅</div>
+                <h3>Tomate</h3>
+                <div class="precio">$1.500/kg</div>
+                <div class="cantidad-control">
+                    <button onclick="cambiarCantidad('tomate', -0.5)">-</button>
+                    <input type="number" id="cant-tomate" value="1" min="0.5" step="0.5" readonly>
+                    <button onclick="cambiarCantidad('tomate', 0.5)">+</button>
+                </div>
+                <button class="btn-agregar" onclick="agregarAlCarrito('Tomate', 1500, 'tomate')">
+                    Agregar al Carrito
+                </button>
+            </div>
+
+            <div class="producto">
+                <div class="producto-icon">🍎</div>
+                <h3>Manzana</h3>
+                <div class="precio">$1.500/kg</div>
+                <div class="cantidad-control">
+                    <button onclick="cambiarCantidad('manzana', -0.5)">-</button>
+                    <input type="number" id="cant-manzana" value="1" min="0.5" step="0.5" readonly>
+                    <button onclick="cambiarCantidad('manzana', 0.5)">+</button>
+                </div>
+                <button class="btn-agregar" onclick="agregarAlCarrito('Manzana', 1500, 'manzana')">
+                    Agregar al Carrito
+                </button>
+            </div>
+
+            <div class="producto">
+                <div class="producto-icon">🍊</div>
+                <h3>Naranja</h3>
+                <div class="precio">$2.000/kg</div>
+                <div class="cantidad-control">
+                    <button onclick="cambiarCantidad('naranja', -0.5)">-</button>
+                    <input type="number" id="cant-naranja" value="1" min="0.5" step="0.5" readonly>
+                    <button onclick="cambiarCantidad('naranja', 0.5)">+</button>
+                </div>
+                <button class="btn-agregar" onclick="agregarAlCarrito('Naranja', 2000, 'naranja')">
+                    Agregar al Carrito
+                </button>
+            </div>
+        </div>
+
+        <div class="carrito">
+            <h2>🛒 Mi Carrito</h2>
+            <div id="carrito-items">
+                <div class="carrito-vacio">Tu carrito está vacío</div>
+            </div>
+            <div id="total-container"></div>
+            <div id="instrucciones-container"></div>
+        </div>
+    </div>
+
+    <script>
+        let carrito = {};
+
+        function cambiarCantidad(producto, cambio) {
+            const input = document.getElementById(`cant-${producto}`);
+            let valor = parseFloat(input.value) + cambio;
+            if (valor < 0.5) valor = 0.5;
+            input.value = valor.toFixed(1);
+        }
+
+        function agregarAlCarrito(nombre, precio, id) {
+            const cantidad = parseFloat(document.getElementById(`cant-${id}`).value);
+            
+            if (carrito[id]) {
+                carrito[id].cantidad += cantidad;
+            } else {
+                carrito[id] = {
+                    nombre: nombre,
+                    precio: precio,
+                    cantidad: cantidad
+                };
+            }
+            
+            actualizarCarrito();
+        }
+
+        function eliminarDelCarrito(id) {
+            delete carrito[id];
+            actualizarCarrito();
+        }
+
+        function actualizarCarrito() {
+            const carritoItems = document.getElementById('carrito-items');
+            const totalContainer = document.getElementById('total-container');
+            const instruccionesContainer = document.getElementById('instrucciones-container');
+            
+            if (Object.keys(carrito).length === 0) {
+                carritoItems.innerHTML = '<div class="carrito-vacio">Tu carrito está vacío</div>';
+                totalContainer.innerHTML = '';
+                instruccionesContainer.innerHTML = '';
+                return;
+            }
+            
+            let html = '';
+            let total = 0;
+            
+            for (let id in carrito) {
+                const item = carrito[id];
+                const subtotal = item.precio * item.cantidad;
+                total += subtotal;
+                
+                html += `
+                    <div class="carrito-item">
+                        <div class="carrito-item-info">
+                            <strong>${item.nombre}</strong><br>
+                            ${item.cantidad} kg × $${item.precio.toLocaleString('es-AR')} = $${subtotal.toLocaleString('es-AR')}
+                        </div>
+                        <button onclick="eliminarDelCarrito('${id}')">Eliminar</button>
+                    </div>
+                `;
+            }
+            
+            carritoItems.innerHTML = html;
+            totalContainer.innerHTML = `<div class="total">Total: $${total.toLocaleString('es-AR')}</div>`;
+            
+            instruccionesContainer.innerHTML = `
+                <div class="instrucciones-pago">
+                    <h3>📱 Instrucciones de Pago</h3>
+                    <p><strong>1.</strong> Transferí el total a nuestro alias de Mercado Pago:</p>
+                    <div class="alias-pago">francisco.sanchez.mp</div>
+                    <p><strong>2.</strong> Envianos el comprobante por Instagram:</p>
+                    <div style="text-align: center;">
+                        <a href="https://instagram.com/_ffransanchez" target="_blank" class="instagram-link">
+                            📸 @_ffransanchez
+                        </a>
+                    </div>
+                    <p style="margin-top: 15px;"><strong>3.</strong> ¡Listo! Te confirmamos el pedido y coordinamos la entrega 🚚</p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
